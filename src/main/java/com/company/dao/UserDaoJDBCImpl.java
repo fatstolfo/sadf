@@ -25,11 +25,10 @@ public class UserDaoJDBCImpl implements UserDao {
     public User get(int id) {
         String SQL = "SELECT * from public.user WHERE id = ?";
         try (PreparedStatement stat = connection.prepareStatement(SQL)) {
-            stat.setInt(1, id);
-//            stat.setString(2, email);
+            stat.setInt(1, id); //!
             try (ResultSet rs = stat.executeQuery()) {
                 if (rs.next()) {
-                    return userRowMapper.mapRow(rs);
+                    return userRowMapper.mapRow(rs); //!
                 }
                 return null;
             }
@@ -41,6 +40,16 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public void create(User item) {
-
+        int i = 1;
+        String SQL = "INSERT INTO public.user(username, password, email) " +
+                "VALUES (?,?,?)";
+        try (PreparedStatement stmt = connection.prepareStatement(SQL)) {
+            stmt.setString(i++, item.getUsername());
+            stmt.setString(i++, item.getPassword());
+            stmt.setString(i++, item.getEmail());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
     }
 }
