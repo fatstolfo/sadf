@@ -15,7 +15,8 @@ public class UserDaoJDBCImpl implements UserDao {
         this.connection = connection;
     }
 
-    private RowMapper<User> userRowMapper = row -> new User(row.getInt("id"),
+    private RowMapper<User> userRowMapper = row -> new User(
+            row.getInt("id"),
             row.getString("username"),
             row.getString("password"),
             row.getString("email"));
@@ -51,5 +52,22 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    @Override
+    public User get(String email) {
+        String SQL = "SELECT * from public.user WHERE email = ?";
+        try (PreparedStatement stat = connection.prepareStatement(SQL)) {
+            stat.setString(1, email); //!
+            try (ResultSet rs = stat.executeQuery()) {
+                if (rs.next()) {
+                    return userRowMapper.mapRow(rs); //!
+                }
+                return null;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 }
