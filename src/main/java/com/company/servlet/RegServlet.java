@@ -28,7 +28,6 @@ public class RegServlet extends HttpServlet {
                 "<head> \n" +
                 "<body> \n" +
                 "<form method=\"post\" action=\"register\"> \n" +
-                "<input name=\"username\" type = \"text\"> \n" +
                 "<input name=\"password\" type = \"password\"> \n" +
                 "<input name=\"email\" type = \"text\"> \n" +
                 "<input type=\"submit\"> \n" +
@@ -46,7 +45,7 @@ public class RegServlet extends HttpServlet {
         try {
             us.create(user);
         } catch (Exception ex) {
-            System.out.println("excption");
+            System.out.println("exception");
         }
 
         resp.sendRedirect(req.getContextPath() + "/register");

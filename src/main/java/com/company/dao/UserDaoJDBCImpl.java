@@ -1,7 +1,6 @@
 package com.company.dao;
 
 import com.company.model.User;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,7 +41,7 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public void create(User item) {
         int i = 1;
-        String SQL = "INSERT INTO public.user(username, password, email) " +
+        String SQL = "INSERT INTO public.users(username, password, email) " +
                 "VALUES (?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(SQL)) {
             stmt.setString(i++, item.getUsername());
