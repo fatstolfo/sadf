@@ -23,7 +23,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public User get(int id) {
-        String SQL = "SELECT * from public.user WHERE id = ?";
+        String SQL = "SELECT * from public.users WHERE id = ?";
         try (PreparedStatement stat = connection.prepareStatement(SQL)) {
             stat.setInt(1, id); //!
             try (ResultSet rs = stat.executeQuery()) {
@@ -55,7 +55,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public User get(String email) {
-        String SQL = "SELECT * from public.user WHERE email = ?";
+        String SQL = "SELECT * from public.users WHERE email = ?";
         try (PreparedStatement stat = connection.prepareStatement(SQL)) {
             stat.setString(1, email); //!
             try (ResultSet rs = stat.executeQuery()) {

@@ -46,7 +46,7 @@ public class RoleServlet extends HttpServlet {
         } catch (Exception ex) {
             System.out.println("exception");
         }
-        resp.sendRedirect(req.getContextPath() + "/Role");
+        resp.sendRedirect(req.getContextPath() + "/role");
     }
 }
 
